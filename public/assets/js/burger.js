@@ -7,11 +7,11 @@ $(function()
 
         var newBurger = 
         {
-            burger_name: $("#newBurger").val().trim(),
+            burger_name: $("#newburger").val().trim(),
             devoured: 0
         };
 
-        // Sned the POST request
+        // Send the POST request
         $.ajax("/api/burgers",
         {
             type: "POST",
@@ -23,5 +23,43 @@ $(function()
                 // Reload the page to get the updated list
                 location.reload();
             });
+    });
+
+    $(".eatburger").on("click", function(event)
+    {
+        event.preventDefault();
+
+        var id = $(this).data("id");
+
+        var devouredState = 
+        {
+            devoured: 1
+        };
+
+        // Send the PUT request
+        $.ajax("/api/burgers/" + id,
+        {
+            type: "PUT",
+            data: devouredState
+        }).then(
+            function()
+            {
+                console.log("Burger devoured");
+                //Reload the page to get the updated list
+                location.reload();
+            });
+    });
+
+    $(".trashburger").on("click", function(event)
+    {
+        event.preventDefault();
+
+        var id = $(this).data("id");
+
+        // Send the DELETE request
+        $.ajax({
+            type: "DELETE",
+            url: "/api/burgers/" + id
+        }).then(location.reload());
     });
 });

@@ -1,4 +1,4 @@
-const connection = require("../config/connection");
+const connection = require("../config/connection.js");
 
 // Helper function to convert object key/value pairs to SQL syntax
 function objToSql(ob) {
@@ -16,6 +16,9 @@ function objToSql(ob) {
         arr.push(key + "=" + value);
       }
     }
+    // translate array of strings to a single comma-separated string
+    return arr.toString();
+}
 
 function createQuestionMarks(num) {
     var arr = [];
@@ -88,4 +91,5 @@ var orm =
     }
 };
 
+// Export the orm object for the model (burger.js).
 module.exports = orm;

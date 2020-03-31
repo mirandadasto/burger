@@ -1,50 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Burger App</title>
-<!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="jquery-3.4.1.min.js"></script>
-    <script src = "../public/assets/js/burger.js"></script>
+<div class = "container">
 
-</head>
-<body>
-
-<div class = container>
-<h1>Eat-Da-Burger!</h1>
-
-<h2>Burgers that have not been devoured:</h2>
-
-<ol>
-    {{#each burgers}}
-        {{#unless devoured}}
-            {{> burgers devoured=false}}
-        {{/unless}}
-    {{/each}}
-</ol>
-
-<h2>Burgers that have been devoured:</h2>
-
-<ol>
-    {{#each burgers}}
-        {{#unless devoured}}
-            {{> burgers devoured=true}}
-        {{/unless}}
-    {{/each}}
-</ol>
-
-<h3>Add a Burger</h3>
-<form class = "create-form">
-    <div class = "form-group">
-        <input type = "text" id = "newBurger" name = "burgerName">
+    <div class = "jumbotron">
+    <h1 id = "header">Welcome to Good Burger, Home of the Good Burger, may I take your order?</h1>
+        <panel>
+            <form class = "create-form">
+                <div class = "form-group">
+                    <label for = "newBurger"> Order your Burger here: </label>
+                    <input type = "text" id = "newBurger" name = "burger">
+                    <button type = "submit" class = "btn btn-success" id = "addburger">Add Burger</button>
+                </div>
+            </form>
+        </panel>
     </div>
 
-    <button type = "submit">Add Burger</button>
-</form>
+    <div class = "row">
+        <div class = "col-sm-6">
+            <div class = "panel panel-default">
+                <div class = "panel-heading" id = "leftside">
+                    <strong>Burgers that have not been devoured:</strong>
+                </div>
+                <div class = "panel-body">
+                    <ul>
+                        {{#each burgers}}
+                            {{#unless devoured}}
+                                <span><strong>{{this.id}} - {{this.burger_name}}</strong></span>
+                                <button type = "button" class "eatburger btn btn-warning" id = "eatbutton" data-id = "{{this.id}}" data-newDevoured = {{devour}}><span class = "fa fa-usd"></span></button>
+                                <hr>
+                            {{/unless}}
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class = "col-sm-6">
+            <div class = "panel panel-default">
+                <div class = "panel-heading" id = "rightside">
+                    <strong>Burgers that have been devoured:</strong>
+                </div>
+                <div class = "panel-body">
+                    <ul>
+                        {{#each burgers}}
+                            {{#if devoured}}
+                                <span><strong>{{this.id}} - {{this.burger_name}}</strong></span>
+                                <button type = "button" class "trashburger btn btn-trash" id = "trashbutton" data-id = "{{this.id}}" data-changedDevoured = {{devour}}><span class = "fa fa-usd"></span></button>
+                                <hr>
+                            {{/if}}
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
-</body>
-</html>
