@@ -65,7 +65,7 @@ var orm =
         var databaseQuery = "UPDATE " + table + " SET " + objToSql(objColVals) + " WHERE " + condition;
 
         // console.log(databaseQuery);
-        connection.query(databaseQuery, values, function(err, result)
+        connection.query(databaseQuery, function(err, result)
         {
             if (err)
             {
@@ -80,7 +80,7 @@ var orm =
         var databaseQuery = "DELETE FROM " + table + " WHERE " + condition;
 
         // console.log(databaseQuery);
-        connection.query(databaseQuery, values, function(err, result)
+        connection.query(databaseQuery, function(err, result)
         {
             if (err)
             {

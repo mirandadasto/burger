@@ -2,13 +2,13 @@ const express = require("express");
 const router = express.Router();
 
 // Import the model (burger.js) to use its database functions.
-const burger = require("../models/burger.js");
+const burger = require("../models/burger");
 
 router.get('/', function (request, response) {
     burger.selectAll(function(data)
     {
         var hdbrsObj = {
-            burger: data
+            burgers: data
         };
         console.log(hdbrsObj);
         response.render("index", hdbrsObj);
@@ -16,10 +16,13 @@ router.get('/', function (request, response) {
 });
 
 router.post('/api/burgers', function (request, response) {
-    burger.updateOne(["burger_name", "devoured"], [request.body.name, request.body.devoured], function(result)
-    {
-        result.json({ id: result.insertId });
-    });
+    burger.insertOne(
+        ["burger_name", "devoured"], 
+        [request.body.burger_name, request.body.devoured], 
+        function(result)
+        {
+            response.json({ id: result.insertId });
+        });
 });
 
 router.put('/api/burgers/:id', function (request, response) {
@@ -40,27 +43,26 @@ router.put('/api/burgers/:id', function (request, response) {
             }
             else
             {
-                respond.status(200).end();
+                response.status(200).end();
             }
-        }
-    );
+        });
 });
 
 router.delete('/api/burgers/:id', function (request, response)
 {
-    var condition = "id " + request.params.id;
+    var condition = "id = " + request.params.id;
 
     console.log("condition", condition);
 
-    burger.deleteOne(condition, function(request, response)
+    burger.deleteOne(condition, function(result)
     {
-        if ((result.changedRows === 0))
+        if (result.changedRows === 0)
             {
                 return response.status(404).end();
             }
             else
             {
-                respond.status(200).end();
+                response.status(200).end();
             }
     });
 });

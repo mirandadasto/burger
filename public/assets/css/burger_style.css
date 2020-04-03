@@ -1,5 +1,15 @@
 #header {
-    margin: auto;
+    margin: 10px 20px 50px 20px;
+    padding: 20px;
     text-align: center;
     border: 3px solid green;
+}
+
+.create-form {
+    text-align: center;
+}
+
+.panel-heading
+{
+    text-align: center;
 }

@@ -1,6 +1,6 @@
 $(function()
 {
-    $(".create-form").on("submit", function(event)
+    $("#order-form").on("submit", function(event)
     {
         // Make sure to preventDefault on a submit event.
         event.preventDefault();
@@ -27,7 +27,9 @@ $(function()
 
     $(".eatburger").on("click", function(event)
     {
+        console.log("Button clicked");
         event.preventDefault();
+
 
         var id = $(this).data("id");
 
@@ -41,8 +43,7 @@ $(function()
         {
             type: "PUT",
             data: devouredState
-        }).then(
-            function()
+        }).then(function()
             {
                 console.log("Burger devoured");
                 //Reload the page to get the updated list
@@ -57,9 +58,8 @@ $(function()
         var id = $(this).data("id");
 
         // Send the DELETE request
-        $.ajax({
-            type: "DELETE",
-            url: "/api/burgers/" + id
-        }).then(location.reload());
+        $.ajax("api/burgers/" + id, {
+            type: "DELETE"
+        }).then(location.reload());    
     });
 });
